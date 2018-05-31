@@ -20,13 +20,28 @@
     }
   },
   {
-    "id": 79174,
-    "name": "suzan",
+    "id": 61206,
+    "name": "suzan123",
     "username": "suzan123",
     "password": "suzan123",
-    "tpNumber": "NP2",
-    "dob": -62125151787805,
-    "course": "BSC-IT",
+    "tpNumber": "suzan123",
+    "dob": 1525210058770,
+    "course": "suzan123",
+    "year": 2018,
+    "email": "suzanparajuli@gmail.com",
+    "role": {
+      "id": 1,
+      "title": "Librarian"
+    }
+  },
+  {
+    "id": 21897,
+    "name": "suzan1234",
+    "username": "suzan1234",
+    "password": "suzan1234",
+    "tpNumber": "suzan1234",
+    "dob": 1496353099649,
+    "course": "suzan1234",
     "year": 2018,
     "email": "suzanparajuli@gmail.com",
     "role": {

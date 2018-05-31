@@ -17,6 +17,7 @@
 package com.sujan.lms.mail;
 
 import com.sujan.lms.common.util.Logy;
+import com.sujan.lms.config.AppConfig;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -119,7 +120,7 @@ public final class MailClient {
 
         try {
 
-            input = new FileInputStream("mail_config.properties");
+            input = new FileInputStream(AppConfig.USER_DIRECTORY + "\\mail_config.properties");
 
             // load a properties file
             prop.load(input);

@@ -1,0 +1,129 @@
+[
+  {
+    "id": 34226,
+    "book": {
+      "availableCopies": 6,
+      "id": 59785,
+      "title": "THE VARIETIES OF RELIGIOUS EXPERIENCE",
+      "subject": {
+        "id": 9489,
+        "title": "Aeronautical  and  Manufacturing Engineering"
+      },
+      "author": {
+        "id": 5846,
+        "title": "William James",
+        "contact": "(580) 710-3667"
+      },
+      "publisher": {
+        "id": 3449,
+        "title": "Flame Lily Books Ltd",
+        "contact": "(690) 367-7028"
+      },
+      "edition": "2010",
+      "isbn": "3-598-21501-0",
+      "shelfNo": {
+        "id": 6960,
+        "location": "A2"
+      },
+      "numberOfCopy": 6
+    },
+    "member": {
+      "expiryDate": 1541087160101,
+      "joinedDate": 1509355930599,
+      "id": 5289,
+      "name": "Sujan",
+      "address": {
+        "permanent": "Parajuli",
+        "temporary": "Parajuli"
+      },
+      "contact": "9849056767"
+    },
+    "user": {
+      "id": 89859,
+      "name": "suzan",
+      "username": "sujan123",
+      "password": "sujan123",
+      "tpNumber": "NP000063",
+      "dob": 1496259832751,
+      "course": "BSCIT",
+      "year": 2018,
+      "email": "suzanparajuli@gmail.com",
+      "role": {
+        "id": 1,
+        "title": "Librarian"
+      }
+    },
+    "borrow": {
+      "id": 84814,
+      "numOfDays": 6,
+      "returningDate": 1528400714206,
+      "timestamp": "Jun 1, 2018 1:30:20 AM"
+    },
+    "status": false,
+    "timestamp": "Jun 1, 2018 1:30:20 AM",
+    "retrn": {
+      "id": 73505,
+      "returnedDate": 1527795932459
+    }
+  },
+  {
+    "id": 84598,
+    "book": {
+      "availableCopies": 6,
+      "id": 59785,
+      "title": "THE VARIETIES OF RELIGIOUS EXPERIENCE",
+      "subject": {
+        "id": 9489,
+        "title": "Aeronautical  and  Manufacturing Engineering"
+      },
+      "author": {
+        "id": 5846,
+        "title": "William James",
+        "contact": "(580) 710-3667"
+      },
+      "publisher": {
+        "id": 3449,
+        "title": "Flame Lily Books Ltd",
+        "contact": "(690) 367-7028"
+      },
+      "edition": "2010",
+      "isbn": "3-598-21501-0",
+      "shelfNo": {
+        "id": 6960,
+        "location": "A2"
+      },
+      "numberOfCopy": 6
+    },
+    "member": {
+      "expiryDate": 1541087160101,
+      "joinedDate": 1509355930599,
+      "id": 5289,
+      "name": "Sujan",
+      "address": {
+        "permanent": "Parajuli",
+        "temporary": "Parajuli"
+      },
+      "contact": "9849056767"
+    },
+    "user": {
+      "id": 6856,
+      "name": "Sujan",
+      "username": "admin",
+      "password": "admin",
+      "dob": 0,
+      "year": 0,
+      "role": {
+        "id": 0,
+        "title": "Admin"
+      }
+    },
+    "borrow": {
+      "id": 32846,
+      "numOfDays": 7,
+      "returningDate": 1528489581601,
+      "timestamp": "Jun 1, 2018 2:11:49 AM"
+    },
+    "status": true,
+    "timestamp": "Jun 1, 2018 2:11:49 AM"
+  }
+]
