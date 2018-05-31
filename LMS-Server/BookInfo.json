@@ -1,0 +1,54 @@
+[
+  {
+    "availableCopies": 10,
+    "id": 26353,
+    "title": "THE EDUCATION OF HENRY ADAMS",
+    "subject": {
+      "id": 9600,
+      "title": "Accounting  and  Finance"
+    },
+    "author": {
+      "id": 4356,
+      "title": "Henry Adams",
+      "contact": "(287) 174-6469"
+    },
+    "publisher": {
+      "id": 3038,
+      "title": "Arma Technologies",
+      "contact": "(634) 791-3745"
+    },
+    "edition": "2009",
+    "isbn": "3-598-21500-2",
+    "shelfNo": {
+      "id": 2954,
+      "location": "C3"
+    },
+    "numberOfCopy": 10
+  },
+  {
+    "availableCopies": 5,
+    "id": 59785,
+    "title": "THE VARIETIES OF RELIGIOUS EXPERIENCE",
+    "subject": {
+      "id": 9489,
+      "title": "Aeronautical  and  Manufacturing Engineering"
+    },
+    "author": {
+      "id": 5846,
+      "title": "William James",
+      "contact": "(580) 710-3667"
+    },
+    "publisher": {
+      "id": 3449,
+      "title": "Flame Lily Books Ltd",
+      "contact": "(690) 367-7028"
+    },
+    "edition": "2010",
+    "isbn": "3-598-21501-0",
+    "shelfNo": {
+      "id": 6960,
+      "location": "A2"
+    },
+    "numberOfCopy": 6
+  }
+]

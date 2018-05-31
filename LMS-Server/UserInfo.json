@@ -1,0 +1,67 @@
+[
+  {
+    "id": 6856,
+    "name": "Sujan",
+    "username": "admin",
+    "password": "admin",
+    "role": {
+      "id": 0,
+      "title": "Admin"
+    }
+  },
+  {
+    "id": 6859,
+    "name": "Phoolmaya",
+    "username": "lib",
+    "password": "lib12345",
+    "role": {
+      "id": 1,
+      "title": "Librarian"
+    }
+  },
+  {
+    "id": 89859,
+    "name": "suzan",
+    "username": "sujan123",
+    "password": "sujan123",
+    "tpNumber": "NP000063",
+    "dob": 1496259832751,
+    "course": "BSCIT",
+    "year": 2018,
+    "email": "suzanparajuli@gmail.com",
+    "role": {
+      "id": 1,
+      "title": "Librarian"
+    }
+  },
+  {
+    "id": 28824,
+    "name": "sujan",
+    "username": "sujan1234",
+    "password": "sujan123",
+    "tpNumber": "NP000063",
+    "dob": 1522873140777,
+    "course": "BSC.IT",
+    "year": 2018,
+    "email": "suzanparajuli@gmail.com",
+    "role": {
+      "id": 1,
+      "title": "Librarian"
+    }
+  },
+  {
+    "id": 38197,
+    "name": "Test",
+    "username": "test1234",
+    "password": "test1234",
+    "tpNumber": "NP000063",
+    "dob": 1527798860415,
+    "course": "BSC.IT",
+    "year": 2018,
+    "email": "sujan.parajuli15@gmail.com",
+    "role": {
+      "id": 1,
+      "title": "Librarian"
+    }
+  }
+]
