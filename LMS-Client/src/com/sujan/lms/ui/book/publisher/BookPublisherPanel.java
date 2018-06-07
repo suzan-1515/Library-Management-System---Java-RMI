@@ -305,9 +305,9 @@ public final class BookPublisherPanel extends BaseUserPanel implements BookView<
 
     private void updatePublisherData(Publisher s, int row) {
         for (Publisher publisher : publisherList) {
-            if (publisher.getId() == publisher.getId()) {
-                publisher.setTitle(publisher.getTitle());
-                publisher.setContact(publisher.getContact());
+            if (publisher.getId() == s.getId()) {
+                publisher.setTitle(s.getTitle());
+                publisher.setContact(s.getContact());
                 break;
             }
         }
@@ -361,6 +361,13 @@ public final class BookPublisherPanel extends BaseUserPanel implements BookView<
 
     @Override
     protected void setupLibrarianView() {
+        this.deletePublisherButton.setVisible(false);
+    }
+
+    @Override
+    protected void setupMemberView() {
+        addPublisherButton.setVisible(false);
+        updatePublisherButton.setVisible(false);
         this.deletePublisherButton.setVisible(false);
     }
 

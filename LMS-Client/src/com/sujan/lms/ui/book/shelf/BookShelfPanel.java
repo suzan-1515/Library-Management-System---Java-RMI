@@ -303,8 +303,8 @@ public final class BookShelfPanel extends BaseUserPanel implements BookView<Shel
 
     private void updateShelfData(Shelf s, int row) {
         for (Shelf shelf : shelfList) {
-            if (shelf.getId() == shelf.getId()) {
-                shelf.setLocation(shelf.getLocation());
+            if (shelf.getId() == s.getId()) {
+                shelf.setLocation(s.getLocation());
                 break;
             }
         }
@@ -361,6 +361,13 @@ public final class BookShelfPanel extends BaseUserPanel implements BookView<Shel
     }
 
     @Override
+    protected void setupMemberView() {
+        addBookShelfButton.setVisible(false);
+        updateBookShelfButton.setVisible(false);
+        this.deleteBookShelfButton.setVisible(false);
+    }
+
+    @Override
     public void onShelfDataRemoved(Shelf s) {
         for (Shelf auth : shelfList) {
             if (auth.getId() == s.getId()) {
@@ -375,4 +382,5 @@ public final class BookShelfPanel extends BaseUserPanel implements BookView<Shel
         onShelfDataRemoved(a);
         ((DefaultTableModel) table.getModel()).removeRow(row);
     }
+
 }

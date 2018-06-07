@@ -16,24 +16,16 @@
  */
 package com.sujan.lms.ui.report;
 
-import com.sujan.lms.access.UserAccess;
 import com.sujan.lms.bll.BookBLL;
 import com.sujan.lms.bll.MemberBLL;
 import com.sujan.lms.bll.UserBLL;
-import com.sujan.lms.common.exception.UnknownException;
 import com.sujan.lms.common.widget.Alert;
 import com.sujan.lms.common.entity.book.BookInfo;
 import com.sujan.lms.common.entity.member.MemberInfo;
 import com.sujan.lms.common.entity.user.UserInfo;
-import com.sujan.lms.common.exception.CorruptedDataException;
-import com.sujan.lms.common.exception.DuplicateRecordException;
-import com.sujan.lms.common.exception.MissingFileException;
-import com.sujan.lms.common.exception.RecordNotFoundException;
+import com.sujan.lms.common.params.RoleParams;
 import com.sujan.lms.common.util.Logy;
-import java.rmi.NotBoundException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -275,13 +267,13 @@ public class ReportPanel extends javax.swing.JPanel {
 
             totlaLibrarian.setText(String.valueOf(
                     allUser.parallelStream()
-                            .filter(usr -> usr.getRole().getId() == UserAccess.LIBRARIAN)
+                            .filter(usr -> usr.getRole().getId() == RoleParams.ROLE_LIBRARIAN)
                             .count()
             ));
 
             totalAdmin.setText(String.valueOf(
                     allUser.parallelStream()
-                            .filter(usr -> usr.getRole().getId() == UserAccess.ADMIN)
+                            .filter(usr -> usr.getRole().getId() == RoleParams.ROLE_ADMIN)
                             .count()
             ));
 

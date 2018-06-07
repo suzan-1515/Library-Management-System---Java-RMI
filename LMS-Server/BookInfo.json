@@ -1,6 +1,6 @@
 [
   {
-    "availableCopies": 10,
+    "availableCopies": 8,
     "id": 26353,
     "title": "THE EDUCATION OF HENRY ADAMS",
     "subject": {
@@ -26,7 +26,7 @@
     "numberOfCopy": 10
   },
   {
-    "availableCopies": 5,
+    "availableCopies": 3,
     "id": 59785,
     "title": "THE VARIETIES OF RELIGIOUS EXPERIENCE",
     "subject": {
@@ -49,6 +49,6 @@
       "id": 6960,
       "location": "A2"
     },
-    "numberOfCopy": 6
+    "numberOfCopy": 4
   }
 ]

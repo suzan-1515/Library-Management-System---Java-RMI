@@ -24,6 +24,7 @@ import com.sujan.lms.common.entity.borrow.Borrow;
 import com.sujan.lms.common.entity.member.MemberInfo;
 import com.sujan.lms.common.entity.transaction.Transaction;
 import com.sujan.lms.common.entity.user.UserInfo;
+import com.sujan.lms.common.params.RoleParams;
 import com.sujan.lms.common.util.Logy;
 import com.sujan.lms.util.Utils;
 import com.sujan.lms.validation.book.BookValidation;
@@ -64,7 +65,9 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
         setLocationRelativeTo(parent);
         this.userInfo = userInfo;
         validation = new BookValidation(parent);
-
+        if (userInfo.getRole().getId() == RoleParams.ROLE_MEMBER) {
+            memberIdTextField.setText(String.valueOf(userInfo.getId()));
+        }
         userIdTextField.setText(String.valueOf(userInfo.getId()));
     }
 

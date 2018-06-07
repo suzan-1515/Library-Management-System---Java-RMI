@@ -76,7 +76,7 @@ public class Configuration extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Knowledgica - Library Management System");
+        setTitle("APU - Library Information System");
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/icon.png")));
         getContentPane().setLayout(new java.awt.CardLayout());
 
@@ -124,11 +124,11 @@ public class Configuration extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Symbol", 1, 42)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Knowledgica");
+        jLabel2.setText("APU");
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Library Management System");
+        jLabel4.setText("Library Information System");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

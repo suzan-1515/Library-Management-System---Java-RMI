@@ -27,6 +27,7 @@ import com.sujan.lms.common.exception.DuplicateRecordException;
 import com.sujan.lms.common.exception.MissingFileException;
 import com.sujan.lms.common.exception.ReadWriteException;
 import com.sujan.lms.common.exception.RecordNotFoundException;
+import com.sujan.lms.common.exception.UnAvailableUsernameException;
 import com.sujan.lms.common.params.MemberParams;
 import com.sujan.lms.common.util.ExceptionUtils;
 import com.sujan.lms.rmi.RMIConnectionManager;
@@ -53,15 +54,21 @@ public class MemberBLL {
      * @throws NotBoundException
      * @throws UnknownException
      * @throws ReadWriteException
+     * @throws com.sujan.lms.common.exception.UnAvailableUsernameException
      */
     public static int insertMember(MemberInfo memberInfo) throws DuplicateRecordException, MissingFileException,
-            CorruptedDataException, NotBoundException, UnknownException, ReadWriteException {
+            CorruptedDataException, NotBoundException, UnknownException,
+            ReadWriteException, UnAvailableUsernameException {
         Registry registry = RMIConnectionManager.getRegistry();
         MemberDAO memberDAO;
         try {
             memberDAO = (MemberDAO) registry.lookup(MemberParams.FILENAME);
             if (memberDAO.isMemberAvailable(memberInfo)) {
                 throw new DuplicateRecordException();
+            }
+
+            if (memberDAO.isUsernameAlreadyUsed(memberInfo.getUsername())) {
+                throw new UnAvailableUsernameException();
             }
 
             return memberDAO.save(memberInfo);
@@ -233,6 +240,40 @@ public class MemberBLL {
     public static boolean isMemberAvailable(Member member) throws DuplicateRecordException, MissingFileException,
             CorruptedDataException, NotBoundException, UnknownException, ReadWriteException {
         return getMemberById(member.getId()) != null;
+    }
+
+    /**
+     *
+     * @param member
+     * @return
+     * @throws DuplicateRecordException
+     * @throws MissingFileException
+     * @throws CorruptedDataException
+     * @throws NotBoundException
+     * @throws UnknownException
+     * @throws ReadWriteException
+     */
+    public static MemberInfo loginMember(Member member) throws DuplicateRecordException, MissingFileException,
+            CorruptedDataException, NotBoundException, UnknownException, ReadWriteException {
+        Registry registry = RMIConnectionManager.getRegistry();
+        MemberDAO memberDAO;
+        try {
+            memberDAO = (MemberDAO) registry.lookup(MemberParams.FILENAME);
+
+            return memberDAO.loginMember(member);
+
+        } catch (RemoteException e) {
+            Throwable ex = ExceptionUtils.dwrapRemoteException(e);
+            if (ex instanceof JsonSyntaxException) {
+                throw new CorruptedDataException(e);
+            } else if (ex instanceof FileNotFoundException) {
+                throw new MissingFileException(MemberParams.FILENAME, e);
+            } else if ((ex instanceof JsonIOException) || (ex instanceof IOException)) {
+                throw new ReadWriteException(e);
+            } else {
+                throw new UnknownException(e);
+            }
+        }
     }
 
 }

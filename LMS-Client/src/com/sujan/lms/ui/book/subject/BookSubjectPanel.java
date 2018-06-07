@@ -301,8 +301,8 @@ public final class BookSubjectPanel extends BaseUserPanel implements BookView<Su
 
     private void updateSubjectData(Subject s, int row) {
         for (Subject subject : subjectList) {
-            if (subject.getId() == subject.getId()) {
-                subject.setTitle(subject.getTitle());
+            if (subject.getId() == s.getId()) {
+                subject.setTitle(s.getTitle());
                 break;
             }
         }
@@ -360,6 +360,13 @@ public final class BookSubjectPanel extends BaseUserPanel implements BookView<Su
     }
 
     @Override
+    protected void setupMemberView() {
+        addBookButton.setVisible(false);
+        updateBookButton.setVisible(false);
+        this.deleteBookButton.setVisible(false);
+    }
+
+    @Override
     public void onSubectDataRemoved(Subject s) {
         for (Subject auth : subjectList) {
             if (auth.getId() == s.getId()) {
@@ -374,4 +381,5 @@ public final class BookSubjectPanel extends BaseUserPanel implements BookView<Su
         onSubectDataRemoved(a);
         ((DefaultTableModel) table.getModel()).removeRow(row);
     }
+
 }

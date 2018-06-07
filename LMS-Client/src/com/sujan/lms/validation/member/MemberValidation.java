@@ -32,7 +32,9 @@ public class MemberValidation extends BaseValidation {
         super(component);
     }
 
-    public boolean isMemberFormValid(String name, String address, String contact, Calendar expiryDate) {
+    public boolean isMemberRegisterFormValid(String name, String username, String email,
+            String tpNumber, Calendar dob, String course, String year, String password,
+            String confirmPassword, Calendar expiryDate) {
         Logy.d("Validating member insert form");
         if (isStringEmptyOrNull(name)) {
             Logy.d("Member name not valid");
@@ -40,28 +42,90 @@ public class MemberValidation extends BaseValidation {
             return false;
         }
 
-        if (isStringEmptyOrNull(address)) {
-            Logy.d("Member address not valid");
-            Alert.showError(component, "Address field cannot be empty.");
-            return false;
-        }
-        if (isStringEmptyOrNull(contact)) {
-            Logy.d("Member contact not valid");
-            Alert.showError(component, "Contact field cannot be empty.");
-            return false;
-        } else if (isContactValid(contact)) {
-            Logy.d("Member contact not valid");
-            Alert.showError(component, "Contact number must be of 9 or 10 digits");
+        if (isStringEmptyOrNull(tpNumber)) {
+            Logy.d("Member TP number not valid");
+            Alert.showError(component, "TP number field cannot be empty.");
             return false;
         }
 
-        if (isDateEmptyOrNull(expiryDate)) {
-            Logy.d("Member expiry date not valid");
-            Alert.showError(component, "Expiry date field cannot be empty.");
+        if (!isBeforeDateValid(dob)) {
+            Logy.d("Member dob must be before current date");
+            Alert.showError(component, "DOB must be before current date.");
             return false;
-        } else if (isBeforeDateValid(expiryDate)) {
-            Logy.d("Member expiry date not valid");
+        }
+
+        if (isBeforeDateValid(expiryDate)) {
+            Logy.d("Member expiryDate must be after current date");
             Alert.showError(component, "Expiry date must be after current date.");
+            return false;
+        }
+
+        if (isStringEmptyOrNull(course)) {
+            Logy.d("Member course not valid");
+            Alert.showError(component, "Course field cannot be empty.");
+            return false;
+        }
+
+        if (isStringEmptyOrNull(year)) {
+            Logy.d("Year not valid");
+            Alert.showError(component, "Year field cannot be empty.");
+            return false;
+        } else if (year.trim().length() < 4 || year.trim().length() > 4) {
+            Logy.d("Year not valid");
+            Alert.showError(component, "Year must be of 4 digit");
+            return false;
+        }
+
+        if (isStringEmptyOrNull(email)) {
+            Logy.d("Member email not valid");
+            Alert.showError(component, "Email field cannot be empty.");
+            return false;
+        } else if (!isEmailValid(email)) {
+            Logy.d("Member email not valid");
+            Alert.showError(component, "Email is not valid.");
+            return false;
+        }
+
+        return isMemberRegisterFormValid(username, password, confirmPassword);
+    }
+
+    public boolean isMemberRegisterFormValid(String username, String password, String confirmPassword) {
+        String s = username.trim();
+        if (isStringEmptyOrNull(s)) {
+            Logy.d("Member username not valid");
+            Alert.showError(component, "Username field cannot be empty.");
+            return false;
+        } else if (s.length() < 6 || s.length() > 10) {
+            Logy.d("Member username not valid");
+            Alert.showError(component, "Username must be of between 6 to 10 characters");
+            return false;
+        }
+
+        s = password.trim();
+        if (isStringEmptyOrNull(s)) {
+            Logy.d("Member password not valid");
+            Alert.showError(component, "Password field cannot be empty.");
+            return false;
+        } else if (s.length() < 8 || s.length() > 18) {
+            Logy.d("Member password not valid");
+            Alert.showError(component, "Password number must be of between 8 to 18 characters");
+            return false;
+        }
+
+        String s1 = confirmPassword.trim();
+        if (isStringEmptyOrNull(s1)) {
+            Logy.d("Member confirm password not valid");
+            Alert.showError(component, "Confirm password field cannot be empty.");
+            return false;
+        } else if (s1.length() < 8 || s1.length() > 18) {
+            Logy.d("Member confirm password not valid");
+            Alert.showError(component, "Confirm password number must be of between 8 to 18 characters");
+            return false;
+        }
+
+        if (!s.equals(s1)) {
+            Logy.d("Member password do not match");
+            Alert.showError(component, "Passwords do not match.");
             return false;
         }
 

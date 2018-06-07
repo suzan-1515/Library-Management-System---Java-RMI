@@ -78,7 +78,7 @@ public final class ChangePassword extends javax.swing.JFrame {
         changeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Knowledgica - Login");
+        setTitle("APU - Change Password");
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/icon.png")));
         getContentPane().setLayout(new java.awt.CardLayout());
 

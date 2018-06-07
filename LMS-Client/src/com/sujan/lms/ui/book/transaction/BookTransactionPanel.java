@@ -276,7 +276,12 @@ public final class BookTransactionPanel extends BaseUserPanel implements BookVie
     @Override
     public final void fillTableData(List<Transaction> transactionList) {
 
-        transactionList.stream().forEach((transaction) -> {
+        transactionList.stream().filter((Transaction t) -> {
+            if (getUserAccess().isMember(userInfo)) {
+                return (t.getMember().getId() == userInfo.getId());
+            }
+            return true;
+        }).forEach((transaction) -> {
             addTransactionRowData(transaction);
         });
 
@@ -353,6 +358,10 @@ public final class BookTransactionPanel extends BaseUserPanel implements BookVie
 
     @Override
     protected void setupLibrarianView() {
+    }
+
+    @Override
+    protected void setupMemberView() {
     }
 
     /**

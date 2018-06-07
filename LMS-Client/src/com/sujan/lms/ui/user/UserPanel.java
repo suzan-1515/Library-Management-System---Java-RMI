@@ -345,9 +345,9 @@ public final class UserPanel extends BaseUserPanel implements UserView {
 
     private void updateUserData(UserInfo s, int row) {
         for (UserInfo user : userList) {
-            if (user.getId() == user.getId()) {
-                user.setName(user.getName());
-                user.setPassword(user.getPassword());
+            if (user.getId() == s.getId()) {
+                user.setName(s.getName());
+                user.setPassword(s.getPassword());
                 break;
             }
         }
@@ -410,6 +410,13 @@ public final class UserPanel extends BaseUserPanel implements UserView {
 
     @Override
     protected void setupLibrarianView() {
+        this.deleteUserButton.setVisible(false);
+    }
+
+    @Override
+    protected void setupMemberView() {
+        addUserButton.setVisible(false);
+        updateUserButton.setVisible(false);
         this.deleteUserButton.setVisible(false);
     }
 

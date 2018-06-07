@@ -17,10 +17,15 @@
 package com.sujan.lms.ui.login;
 
 import com.sujan.lms.access.UserAccess;
+import com.sujan.lms.bll.MemberBLL;
 import com.sujan.lms.bll.UserBLL;
+import com.sujan.lms.common.entity.member.Member;
+import com.sujan.lms.common.entity.member.MemberInfo;
+import com.sujan.lms.common.entity.role.Role;
 import com.sujan.lms.common.widget.Alert;
 import com.sujan.lms.common.entity.user.User;
 import com.sujan.lms.common.entity.user.UserInfo;
+import com.sujan.lms.common.params.RoleParams;
 import com.sujan.lms.common.params.UserParams;
 import com.sujan.lms.ui.dashboard.Dashboard;
 import com.sujan.lms.ui.dashboard.GuestDashboard;
@@ -56,7 +61,6 @@ public final class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         rootPanel = new javax.swing.JPanel();
         topPanel = new javax.swing.JPanel();
@@ -76,7 +80,7 @@ public final class Login extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Knowledgica - Login");
+        setTitle("APU - Login");
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/icon.png")));
         getContentPane().setLayout(new java.awt.CardLayout());
 
@@ -307,8 +311,26 @@ public final class Login extends javax.swing.JFrame {
                         Alert.showError(this, "Unauthorized login attempt");
                     }
                 } else {
-                    Logy.d("User or pass not valid");
-                    Alert.showInformation(this, "Invalid Username or Password ");
+                    Member member = new Member();
+                    member.setUsername(userName);
+                    member.setPassword(pass);
+
+                    MemberInfo memberInfo = MemberBLL.loginMember(member);
+                    if (memberInfo != null) {
+                        loginUser = new UserInfo();
+                        loginUser.setName(memberInfo.getName());
+                        loginUser.setUsername(userName);
+                        loginUser.setPassword(pass);
+                        loginUser.setId(memberInfo.getId());
+                        loginUser.setRole(new Role(RoleParams.ROLE_MEMBER, RoleParams.MEMBER));
+
+                        this.dispose();
+                        Dashboard dashboard = new Dashboard(loginUser);
+                        dashboard.setVisible(true);
+                    } else {
+                        Logy.d("User or pass not valid");
+                        Alert.showInformation(this, "Invalid Username or Password ");
+                    }
                 }
             } catch (Exception ex) {
                 Logy.e(ex);

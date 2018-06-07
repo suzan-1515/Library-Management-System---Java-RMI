@@ -149,8 +149,12 @@ public class MemberDAOImpl extends UnicastRemoteObject implements MemberDAO {
                 if (item.get(MemberParams.ID).getAsInt() == t.getId()) {
 
                     item.addProperty(MemberParams.NAME, t.getName());
-                    item.add(MemberParams.ADDRESS, gson.toJsonTree(t.getAddress()));
-                    item.addProperty(MemberParams.CONTACT, t.getContact());
+                    item.addProperty(MemberParams.EMAIL, t.getEmail());
+                    item.addProperty(MemberParams.TP_NUMBER, t.getTpNumber());
+                    item.addProperty(MemberParams.DOB, t.getDob());
+                    item.addProperty(MemberParams.COURSE, t.getCourse());
+                    item.addProperty(MemberParams.YEAR, t.getYear());
+                    item.addProperty(MemberParams.PASSWORD, t.getPassword());
                     item.addProperty(MemberParams.EXPIRY_DATE, t.getExpiryDate());
 
                     found = true;
@@ -255,6 +259,64 @@ public class MemberDAOImpl extends UnicastRemoteObject implements MemberDAO {
             throw new RemoteException(null, ex);
         }
 
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     * @throws RemoteException
+     */
+    @Override
+    public synchronized boolean isUsernameAlreadyUsed(String username) throws RemoteException {
+        try (Reader reader = new FileReader(filename)) {
+            JsonArray rootArray = gson.fromJson(reader, JsonArray.class
+            );
+            Iterator<JsonElement> iterator = rootArray.iterator();
+            while (iterator.hasNext()) {
+                JsonObject item = iterator.next().getAsJsonObject();
+
+                if (item.get(MemberParams.USERNAME).getAsString().equals(username.trim())) {
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            throw new RemoteException(null, ex);
+        } catch (IOException | JsonIOException | JsonSyntaxException ex) {
+            throw new RemoteException(null, ex);
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     * @param member
+     * @return
+     * @throws RemoteException
+     */
+    @Override
+    public MemberInfo loginMember(Member member) throws RemoteException {
+        try (Reader reader = new FileReader(filename)) {
+            JsonArray rootArray = gson.fromJson(reader, JsonArray.class
+            );
+            Iterator<JsonElement> iterator = rootArray.iterator();
+            while (iterator.hasNext()) {
+                JsonObject item = iterator.next().getAsJsonObject();
+
+                if (item.get(MemberParams.USERNAME).getAsString().equals(member.getUsername())
+                        && item.get(MemberParams.PASSWORD).getAsString().equals(member.getPassword())) {
+                    return gson.fromJson(item, MemberInfo.class
+                    );
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            throw new RemoteException(null, ex);
+        } catch (IOException | JsonIOException | JsonSyntaxException ex) {
+            throw new RemoteException(null, ex);
+        }
+
+        return null;
     }
 
 }

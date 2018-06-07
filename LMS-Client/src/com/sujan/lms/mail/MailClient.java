@@ -89,27 +89,31 @@ public final class MailClient {
     /**
      *
      * @param recipient
-     * @throws MessagingException
-     * @throws UnsupportedEncodingException
      */
-    public void sendMail(String recipient) throws MessagingException, UnsupportedEncodingException {
+    public void sendMail(String recipient) {
+        new Thread(() -> {
+            try {
+                //Creating a Message object to set the email content
+                MimeMessage msg = new MimeMessage(session);
+                //Storing the comma seperated values to email addresses
+                /*Parsing the String with defualt delimiter as a comma by marking the boolean as true and storing the email
+                addresses in an array of InternetAddress objects*/
+                InternetAddress[] address = InternetAddress.parse(recipient, true);
+                //Setting the recepients from the address variable
+                msg.setRecipients(Message.RecipientType.TO, address);
+                msg.setSubject("Registration Complete!");
+                msg.setFrom(new InternetAddress(username, "Knowledgica Library!"));
 
-        //Creating a Message object to set the email content
-        MimeMessage msg = new MimeMessage(session);
-        //Storing the comma seperated values to email addresses
-        /*Parsing the String with defualt delimiter as a comma by marking the boolean as true and storing the email
-            addresses in an array of InternetAddress objects*/
-        InternetAddress[] address = InternetAddress.parse(recipient, true);
-        //Setting the recepients from the address variable
-        msg.setRecipients(Message.RecipientType.TO, address);
-        msg.setSubject("Registration Complete!");
-        msg.setFrom(new InternetAddress(username, "Knowledgica Library!"));
-        msg.setSentDate(new Date());
-        msg.setText("Thank you for registering to Knowledgica Library. Please "
-                + "login with your credientials to start using our system");
-        msg.setHeader("XPriority", "1");
-        Transport.send(msg);
-        Logy.d("Mail hass been sent successfully");
+                msg.setSentDate(new Date());
+                msg.setText("Thank you for registering to Knowledgica Library. Please "
+                        + "login with your credientials to start using our system");
+                msg.setHeader("XPriority", "1");
+                Transport.send(msg);
+                Logy.d("Mail hass been sent successfully");
+            } catch (MessagingException | UnsupportedEncodingException ex) {
+                Logy.e(ex);
+            }
+        }).start();
 
     }
 

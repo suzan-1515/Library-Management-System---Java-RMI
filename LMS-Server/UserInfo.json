@@ -18,20 +18,5 @@
       "id": 1,
       "title": "Librarian"
     }
-  },
-  {
-    "id": 79174,
-    "name": "suzan",
-    "username": "suzan123",
-    "password": "suzan123",
-    "tpNumber": "NP2",
-    "dob": -62125151787805,
-    "course": "BSC-IT",
-    "year": 2018,
-    "email": "suzanparajuli@gmail.com",
-    "role": {
-      "id": 1,
-      "title": "Librarian"
-    }
   }
 ]

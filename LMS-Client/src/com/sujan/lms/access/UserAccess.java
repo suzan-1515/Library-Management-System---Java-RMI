@@ -17,6 +17,7 @@
 package com.sujan.lms.access;
 
 import com.sujan.lms.common.entity.user.UserInfo;
+import com.sujan.lms.common.params.RoleParams;
 
 /**
  *
@@ -24,16 +25,13 @@ import com.sujan.lms.common.entity.user.UserInfo;
  */
 public class UserAccess {
 
-    public static final int ADMIN = 0;
-    public static final int LIBRARIAN = 1;
-
     /**
      *
      * @param userInfo
      * @return
      */
     public boolean isAdmin(UserInfo userInfo) {
-        return userInfo.getRole().getId() == ADMIN;
+        return userInfo.getRole().getId() == RoleParams.ROLE_ADMIN;
     }
 
     /**
@@ -42,7 +40,16 @@ public class UserAccess {
      * @return
      */
     public boolean isLibrarian(UserInfo userInfo) {
-        return userInfo.getRole().getId() == LIBRARIAN;
+        return userInfo.getRole().getId() == RoleParams.ROLE_LIBRARIAN;
+    }
+
+    /**
+     *
+     * @param userInfo
+     * @return
+     */
+    public boolean isMember(UserInfo userInfo) {
+        return userInfo.getRole().getId() == RoleParams.ROLE_MEMBER;
     }
 
 }

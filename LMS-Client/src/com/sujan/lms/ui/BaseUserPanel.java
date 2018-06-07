@@ -34,10 +34,12 @@ public abstract class BaseUserPanel extends javax.swing.JPanel implements UserPe
 
     @Override
     public void setupUserView(UserInfo userInfo) {
-        if (userAccess.isAdmin(userInfo)) {
+        if (getUserAccess().isAdmin(userInfo)) {
             setupAdminView();
-        } else if (userAccess.isLibrarian(userInfo)) {
+        } else if (getUserAccess().isLibrarian(userInfo)) {
             setupLibrarianView();
+        } else if (getUserAccess().isMember(userInfo)) {
+            setupMemberView();
         }
     }
 
@@ -45,5 +47,13 @@ public abstract class BaseUserPanel extends javax.swing.JPanel implements UserPe
 
     protected abstract void setupLibrarianView();
 
-    
+    protected abstract void setupMemberView();
+
+    /**
+     * @return the userAccess
+     */
+    protected UserAccess getUserAccess() {
+        return userAccess;
+    }
+
 }

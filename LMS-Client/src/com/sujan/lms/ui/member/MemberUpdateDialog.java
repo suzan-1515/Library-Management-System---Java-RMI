@@ -18,15 +18,21 @@ package com.sujan.lms.ui.member;
 
 import com.sujan.lms.bll.MemberBLL;
 import com.sujan.lms.common.widget.Alert;
-import com.sujan.lms.common.entity.address.Address;
 import com.sujan.lms.common.entity.member.MemberInfo;
+import com.sujan.lms.common.exception.CorruptedDataException;
+import com.sujan.lms.common.exception.DuplicateRecordException;
+import com.sujan.lms.common.exception.MissingFileException;
+import com.sujan.lms.common.exception.ReadWriteException;
+import com.sujan.lms.common.exception.RecordNotFoundException;
+import com.sujan.lms.common.exception.UnknownException;
 import com.sujan.lms.common.util.Logy;
 import com.sujan.lms.util.Utils;
 import com.sujan.lms.validation.member.MemberValidation;
+import java.rmi.NotBoundException;
 
 /**
  *
- * @member Suzn
+ * @author Suzn
  */
 public class MemberUpdateDialog extends javax.swing.JDialog {
 
@@ -43,16 +49,28 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
 
     private void resetFields() {
         nameTextField.setText(null);
-        addressTextField.setText(null);
-        contactTextField.setText(null);
-        expiryDatePicker.setSelectedDate(null);
+        tpNumberTextField.setText(null);
+        dobDateChooser.setSelectedDate(null);
+        courseTextField.setText(null);
+        yearTextField.setText(null);
+        emailTextField.setText(null);
+        userTextField.setText(null);
+        passwordField.setText(null);
+        confirmPasswordField.setText(null);
+        expiryDateChooser.setSelectedDate(null);
     }
 
     private void fillFields() {
         nameTextField.setText(member.getName());
-        addressTextField.setText(member.getAddress().getTemporary());
-        contactTextField.setText(member.getContact());
-        expiryDatePicker.setSelectedDate(Utils.millisToCalendar(member.getExpiryDate()));
+        tpNumberTextField.setText(member.getTpNumber());
+        dobDateChooser.setSelectedDate(Utils.millisToCalendar(member.getDob()));
+        courseTextField.setText(member.getCourse());
+        yearTextField.setText(String.valueOf(member.getYear()));
+        emailTextField.setText(member.getEmail());
+        userTextField.setText(member.getUsername());
+        passwordField.setText(member.getPassword());
+        confirmPasswordField.setText(member.getPassword());
+        expiryDateChooser.setSelectedDate(Utils.millisToCalendar(member.getExpiryDate()));
     }
 
     public interface ItemUpdatedListener {
@@ -61,7 +79,7 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Creates new form MemberMemberInsertDialog
+     * Creates new form MemberInsertDialog1
      *
      * @param parent
      * @param modal
@@ -72,8 +90,8 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
         this.member = member;
-        this.fillFields();
         validation = new MemberValidation(parent);
+        this.fillFields();
     }
 
     /**
@@ -97,16 +115,29 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        addressTextField = new javax.swing.JTextField();
+        userTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        contactTextField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        expiryDatePicker = new datechooser.beans.DateChooserCombo();
+        tpNumberTextField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        dobDateChooser = new datechooser.beans.DateChooserCombo();
+        jLabel8 = new javax.swing.JLabel();
+        courseTextField = new javax.swing.JTextField();
+        yearTextField = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        emailTextField = new javax.swing.JTextField();
+        confirmPasswordField = new javax.swing.JPasswordField();
+        jLabel11 = new javax.swing.JLabel();
+        expiryDateChooser = new datechooser.beans.DateChooserCombo();
         jPanel6 = new javax.swing.JPanel();
         cancelButton = new javax.swing.JButton();
-        updateButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Update Student");
         setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 
@@ -128,7 +159,7 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Update Member");
+        jLabel1.setText("Update Student");
         jLabel1.setPreferredSize(new java.awt.Dimension(113, 50));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -137,7 +168,7 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -152,10 +183,10 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(74, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(107, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,43 +206,233 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
         jPanel4.setPreferredSize(new java.awt.Dimension(380, 200));
 
         jPanel5.setOpaque(false);
-        jPanel5.setLayout(new java.awt.GridLayout(4, 2, 0, 5));
 
         jLabel2.setText("Name");
-        jPanel5.add(jLabel2);
-        jPanel5.add(nameTextField);
 
-        jLabel3.setText("Address");
-        jPanel5.add(jLabel3);
-        jPanel5.add(addressTextField);
+        jLabel3.setText("Username");
 
-        jLabel4.setText("Contact");
-        jPanel5.add(jLabel4);
+        userTextField.setEditable(false);
 
-        contactTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                char enter = evt.getKeyChar();
-                if(!(Character.isDigit(enter))){
-                    evt.consume();
-                }
-            }
-        });
-        jPanel5.add(contactTextField);
+        jLabel4.setText("Password");
 
-        jLabel5.setText("Expiry Date");
-        jPanel5.add(jLabel5);
+        jLabel5.setText("Confirm Password");
 
-        expiryDatePicker.setSelectedDate(null);
-        expiryDatePicker.setCalendarPreferredSize(new java.awt.Dimension(340, 180));
-        expiryDatePicker.setNothingAllowed(false);
-        try {
-            expiryDatePicker.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2018, 5, 2),
-                new java.util.GregorianCalendar(2018, 5, 2))));
-    } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-        e1.printStackTrace();
+        jLabel6.setText("TP Number");
+
+        jLabel7.setText("DOB");
+
+        dobDateChooser.setSelectedDate(null);
+        dobDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
+            new datechooser.view.appearance.ViewAppearance("custom",
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    true,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 255),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(128, 128, 128),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.LabelPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.LabelPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(255, 0, 0),
+                    false,
+                    false,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                (datechooser.view.BackRenderer)null,
+                false,
+                true)));
+    dobDateChooser.setCalendarPreferredSize(new java.awt.Dimension(340, 180));
+    dobDateChooser.setNothingAllowed(false);
+    try {
+        dobDateChooser.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2018, 5, 2),
+            new java.util.GregorianCalendar(2018, 5, 2))));
+} catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+    e1.printStackTrace();
     }
-    expiryDatePicker.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
-    jPanel5.add(expiryDatePicker);
+    dobDateChooser.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
+
+    jLabel8.setText("Course");
+
+    yearTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyTyped(java.awt.event.KeyEvent evt) {
+            char enter = evt.getKeyChar();
+            if(!(Character.isDigit(enter))){
+                evt.consume();
+            }
+        }
+    });
+
+    jLabel9.setText("Year");
+
+    jLabel10.setText("Email");
+
+    jLabel11.setText("Expiry Date");
+
+    dobDateChooser.setSelectedDate(null);
+    expiryDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
+        new datechooser.view.appearance.ViewAppearance("custom",
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                true,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 255),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(128, 128, 128),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.LabelPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.LabelPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(255, 0, 0),
+                false,
+                false,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            (datechooser.view.BackRenderer)null,
+            false,
+            true)));
+expiryDateChooser.setCalendarPreferredSize(new java.awt.Dimension(340, 180));
+expiryDateChooser.setNothingAllowed(false);
+try {
+    expiryDateChooser.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2018, 5, 2),
+        new java.util.GregorianCalendar(2018, 5, 2))));
+} catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+e1.printStackTrace();
+}
+expiryDateChooser.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
+
+javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+jPanel5.setLayout(jPanel5Layout);
+jPanel5Layout.setHorizontalGroup(
+    jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jPanel5Layout.createSequentialGroup()
+        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dobDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(expiryDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(302, 302, 302)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(courseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tpNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        .addContainerGap())
+    );
+
+    jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dobDateChooser, nameTextField, passwordField, userTextField, yearTextField});
+
+    jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {courseTextField, emailTextField, expiryDateChooser, tpNumberTextField});
+
+    jPanel5Layout.setVerticalGroup(
+        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGap(1, 1, 1)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tpNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dobDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(courseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(expiryDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(25, 25, 25))
+    );
+
+    jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dobDateChooser, jLabel7});
+
+    jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel9, yearTextField});
+
+    jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {expiryDateChooser, jLabel11});
 
     jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(255, 51, 0)));
     jPanel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -225,11 +446,11 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
         }
     });
 
-    updateButton.setText("Update");
-    updateButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-    updateButton.addActionListener(new java.awt.event.ActionListener() {
+    saveButton.setText("Save");
+    saveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+    saveButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            updateButtonActionPerformed(evt);
+            saveButtonActionPerformed(evt);
         }
     });
 
@@ -238,8 +459,8 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
     jPanel6Layout.setHorizontalGroup(
         jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-            .addContainerGap(172, Short.MAX_VALUE)
-            .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(36, 36, 36))
@@ -250,7 +471,7 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
             .addContainerGap()
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
@@ -258,22 +479,21 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
     jPanel4.setLayout(jPanel4Layout);
     jPanel4Layout.setHorizontalGroup(
         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        .addGroup(jPanel4Layout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(32, 32, 32)))
-            .addContainerGap())
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap())
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
     );
     jPanel4Layout.setVerticalGroup(
         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel4Layout.createSequentialGroup()
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(42, Short.MAX_VALUE))
+            .addGap(35, 35, 35))
     );
 
     javax.swing.GroupLayout centerPanelLayout = new javax.swing.GroupLayout(centerPanel);
@@ -281,15 +501,15 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
     centerPanelLayout.setHorizontalGroup(
         centerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, centerPanelLayout.createSequentialGroup()
-            .addContainerGap(74, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(74, Short.MAX_VALUE))
+            .addContainerGap(107, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(108, Short.MAX_VALUE))
     );
     centerPanelLayout.setVerticalGroup(
         centerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(centerPanelLayout.createSequentialGroup()
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(63, 63, 63))
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 90, Short.MAX_VALUE))
     );
 
     rootPanel.add(centerPanel, java.awt.BorderLayout.CENTER);
@@ -303,29 +523,44 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        if (validation.isMemberFormValid(nameTextField.getText(), addressTextField.getText(), contactTextField.getText(),
-                expiryDatePicker.getSelectedDate())) {
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        if (validation.isMemberRegisterFormValid(
+                nameTextField.getText(),
+                userTextField.getText(),
+                emailTextField.getText(),
+                tpNumberTextField.getText(),
+                dobDateChooser.getSelectedDate(),
+                courseTextField.getText(),
+                yearTextField.getText(),
+                String.valueOf(passwordField.getPassword()),
+                String.valueOf(confirmPasswordField.getPassword()),
+                expiryDateChooser.getSelectedDate())) {
 
             member.setName(nameTextField.getText());
-            member.setAddress(new Address(addressTextField.getText()));
-            member.setContact(contactTextField.getText());
-            member.setExpiryDate(expiryDatePicker.getSelectedDate().getTimeInMillis());
+            member.setPassword(String.valueOf(passwordField.getPassword()));
+            member.setTpNumber(tpNumberTextField.getText());
+            member.setDob(dobDateChooser.getSelectedDate().getTimeInMillis());
+            member.setCourse(courseTextField.getText());
+            member.setYear(Integer.valueOf(yearTextField.getText()));
+            member.setEmail(emailTextField.getText());
+            member.setExpiryDate(expiryDateChooser.getSelectedDate().getTimeInMillis());
 
             try {
                 MemberBLL.updateMember(member);
-                notifyDataSetChanged(member);
                 Alert.showInformation(this, "Member updated successfully!");
+                notifyDataSetChanged(member);
 
-                resetFields();
                 this.dispose();
-            } catch (Exception ex) {
+            } catch (CorruptedDataException | DuplicateRecordException
+                    | MissingFileException | ReadWriteException
+                    | UnknownException
+                    | NotBoundException | RecordNotFoundException ex) {
                 Logy.e(ex);
                 Alert.showError(this, ex.getMessage());
             }
 
         }
-    }//GEN-LAST:event_updateButtonActionPerformed
+    }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,7 +585,132 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -367,16 +727,24 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField addressTextField;
     private javax.swing.JButton cancelButton;
     private javax.swing.JPanel centerPanel;
-    private javax.swing.JTextField contactTextField;
-    private datechooser.beans.DateChooserCombo expiryDatePicker;
+    private javax.swing.JPasswordField confirmPasswordField;
+    private javax.swing.JTextField courseTextField;
+    private datechooser.beans.DateChooserCombo dobDateChooser;
+    private javax.swing.JTextField emailTextField;
+    private datechooser.beans.DateChooserCombo expiryDateChooser;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -384,9 +752,13 @@ public class MemberUpdateDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JPanel rootPanel;
+    private javax.swing.JButton saveButton;
     private javax.swing.JPanel topPanel;
-    private javax.swing.JButton updateButton;
+    private javax.swing.JTextField tpNumberTextField;
+    private javax.swing.JTextField userTextField;
+    private javax.swing.JTextField yearTextField;
     // End of variables declaration//GEN-END:variables
 
     /**

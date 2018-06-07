@@ -47,9 +47,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="172" max="32767" attributes="0"/>
+                  <EmptySpace pref="221" max="32767" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="172" max="32767" attributes="0"/>
+                  <EmptySpace pref="221" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -105,7 +105,7 @@
                   <Font name="Tahoma" size="36" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Knowledgica Library"/>
+                <Property name="text" type="java.lang.String" value="APU Library"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">

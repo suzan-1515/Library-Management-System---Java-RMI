@@ -16,7 +16,6 @@
  */
 package com.sujan.lms.common.entity.member;
 
-import com.sujan.lms.common.entity.address.Address;
 import java.io.Serializable;
 
 /**
@@ -25,21 +24,121 @@ import java.io.Serializable;
  */
 public class Member implements Serializable {
 
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return the tpNumber
+     */
+    public String getTpNumber() {
+        return tpNumber;
+    }
+
+    /**
+     * @param tpNumber the tpNumber to set
+     */
+    public void setTpNumber(String tpNumber) {
+        this.tpNumber = tpNumber;
+    }
+
+    /**
+     * @return the dob
+     */
+    public long getDob() {
+        return dob;
+    }
+
+    /**
+     * @param dob the dob to set
+     */
+    public void setDob(long dob) {
+        this.dob = dob;
+    }
+
+    /**
+     * @return the course
+     */
+    public String getCourse() {
+        return course;
+    }
+
+    /**
+     * @param course the course to set
+     */
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    /**
+     * @return the year
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * @param year the year to set
+     */
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private int id;
     private String name;
-    private Address address;
-    private String contact;
+    private String username;
+    private String password;
+    private String tpNumber;
+    private long dob;
+    private String course;
+    private int year;
+    private String email;
 
     public Member() {
     }
 
-    
-    
     public Member(int id) {
         this.id = id;
     }
 
-    
     /**
      * @return the id
      */
@@ -67,33 +166,4 @@ public class Member implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-    /**
-     * @return the address
-     */
-    public Address getAddress() {
-        return address;
-    }
-
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    /**
-     * @return the contact
-     */
-    public String getContact() {
-        return contact;
-    }
-
-    /**
-     * @param contact the contact to set
-     */
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
 }

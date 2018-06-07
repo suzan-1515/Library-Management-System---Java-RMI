@@ -17,20 +17,14 @@
 package com.sujan.lms.ui.member;
 
 import com.sujan.lms.bll.MemberBLL;
-import com.sujan.lms.common.exception.UnknownException;
 import com.sujan.lms.common.widget.Alert;
 import com.sujan.lms.common.entity.member.MemberInfo;
 import com.sujan.lms.common.entity.user.UserInfo;
-import com.sujan.lms.common.exception.CorruptedDataException;
-import com.sujan.lms.common.exception.DuplicateRecordException;
-import com.sujan.lms.common.exception.MissingFileException;
-import com.sujan.lms.common.exception.RecordNotFoundException;
 import com.sujan.lms.common.params.MemberParams;
 import com.sujan.lms.ui.BaseUserPanel;
 import com.sujan.lms.common.util.Logy;
 import com.sujan.lms.util.Utils;
 import com.sujan.lms.view.MemberView;
-import java.rmi.NotBoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -209,8 +203,13 @@ public final class MemberPanel extends BaseUserPanel implements MemberView {
 
         tableModel.addColumn(MemberParams.ID.toUpperCase());
         tableModel.addColumn(MemberParams.NAME.toUpperCase());
-        tableModel.addColumn(MemberParams.ADDRESS.toUpperCase());
-        tableModel.addColumn(MemberParams.CONTACT.toUpperCase());
+        tableModel.addColumn(MemberParams.EMAIL.toUpperCase());
+        tableModel.addColumn(MemberParams.DOB.toUpperCase());
+        tableModel.addColumn(MemberParams.COURSE.toUpperCase());
+        tableModel.addColumn(MemberParams.TP_NUMBER.toUpperCase());
+        tableModel.addColumn(MemberParams.YEAR.toUpperCase());
+        tableModel.addColumn(MemberParams.USERNAME.toUpperCase());
+        tableModel.addColumn(MemberParams.PASSWORD.toUpperCase());
         tableModel.addColumn(MemberParams.JOINED_DATE.toUpperCase());
         tableModel.addColumn(MemberParams.EXPIRY_DATE.toUpperCase());
         table.setModel(tableModel);
@@ -340,8 +339,13 @@ public final class MemberPanel extends BaseUserPanel implements MemberView {
         ((DefaultTableModel) table.getModel()).insertRow(0, new Object[]{
             member.getId(),
             member.getName(),
-            member.getAddress().getTemporary(),
-            member.getContact(),
+            member.getEmail(),
+            Utils.millisToSql(member.getDob()),
+            member.getCourse(),
+            member.getTpNumber(),
+            member.getYear(),
+            member.getUsername(),
+            member.getPassword(),
             Utils.millisToSql(member.getJoinedDate()),
             Utils.millisToSql(member.getExpiryDate())
         });
@@ -354,11 +358,15 @@ public final class MemberPanel extends BaseUserPanel implements MemberView {
 
     private void updateMemberData(MemberInfo s, int row) {
         for (MemberInfo member : memberList) {
-            if (member.getId() == member.getId()) {
-                member.setName(member.getName());
-                member.setAddress(member.getAddress());
-                member.setContact(member.getContact());
-                member.setExpiryDate(member.getExpiryDate());
+            if (member.getId() == s.getId()) {
+                member.setName(s.getName());
+                member.setEmail(s.getEmail());
+                member.setDob(s.getDob());
+                member.setCourse(s.getCourse());
+                member.setTpNumber(s.getTpNumber());
+                member.setYear(s.getYear());
+                member.setPassword(s.getPassword());
+                member.setExpiryDate(s.getExpiryDate());
                 break;
             }
         }
@@ -368,9 +376,13 @@ public final class MemberPanel extends BaseUserPanel implements MemberView {
 
     private void updateMemberInfoRowData(MemberInfo member, int row) {
         ((DefaultTableModel) table.getModel()).setValueAt(member.getName(), row, 1);
-        ((DefaultTableModel) table.getModel()).setValueAt(member.getAddress().getTemporary(), row, 2);
-        ((DefaultTableModel) table.getModel()).setValueAt(member.getContact(), row, 3);
-        ((DefaultTableModel) table.getModel()).setValueAt(Utils.millisToSql(member.getExpiryDate()), row, 5);
+        ((DefaultTableModel) table.getModel()).setValueAt(member.getEmail(), row, 2);
+        ((DefaultTableModel) table.getModel()).setValueAt(member.getDob(), row, 3);
+        ((DefaultTableModel) table.getModel()).setValueAt(member.getCourse(), row, 4);
+        ((DefaultTableModel) table.getModel()).setValueAt(member.getTpNumber(), row, 5);
+        ((DefaultTableModel) table.getModel()).setValueAt(member.getYear(), row, 6);
+        ((DefaultTableModel) table.getModel()).setValueAt(member.getPassword(), row, 8);
+        ((DefaultTableModel) table.getModel()).setValueAt(Utils.millisToSql(member.getExpiryDate()), row, 10);
     }
 
     private void removeMemberData(MemberInfo m, int row) {
@@ -423,6 +435,13 @@ public final class MemberPanel extends BaseUserPanel implements MemberView {
 
     @Override
     protected void setupLibrarianView() {
+        this.deleteMemberButton.setVisible(false);
+    }
+
+    @Override
+    protected void setupMemberView() {
+        addMemberButton.setVisible(false);
+        updateMemberButton.setVisible(false);
         this.deleteMemberButton.setVisible(false);
     }
 

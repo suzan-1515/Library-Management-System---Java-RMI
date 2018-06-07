@@ -26,8 +26,10 @@ public class RoleParams extends Params {
 
     public static final int ROLE_ADMIN = 0;
     public static final int ROLE_LIBRARIAN = 1;
+    public static final int ROLE_MEMBER = 2;
 
     public static final String ADMIN = "Admin";
     public static final String LIBRARIAN = "Librarian";
+    public static final String MEMBER = "Member";
 
 }

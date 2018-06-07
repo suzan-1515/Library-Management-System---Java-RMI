@@ -308,9 +308,9 @@ public final class BookAuthorPanel extends BaseUserPanel
 
     private void updateAuthorData(Author s, int row) {
         for (Author author : authorList) {
-            if (author.getId() == author.getId()) {
-                author.setTitle(author.getTitle());
-                author.setContact(author.getContact());
+            if (author.getId() == s.getId()) {
+                author.setTitle(s.getTitle());
+                author.setContact(s.getContact());
                 break;
             }
         }
@@ -368,6 +368,13 @@ public final class BookAuthorPanel extends BaseUserPanel
     }
 
     @Override
+    protected void setupMemberView() {
+        addBookAuthorButton.setVisible(false);
+        updateBookAuthorButton.setVisible(false);
+        this.deleteBookAuthorButton.setVisible(false);
+    }
+
+    @Override
     public void onAuthorDataRemoved(Author a) {
         for (Author auth : authorList) {
             if (auth.getId() == a.getId()) {
@@ -382,4 +389,5 @@ public final class BookAuthorPanel extends BaseUserPanel
         onAuthorDataRemoved(a);
         ((DefaultTableModel) table.getModel()).removeRow(row);
     }
+
 }

@@ -39,11 +39,15 @@ public abstract class BaseDashboard extends JFrame implements UserPermission {
             setupAdminView();
         } else if (userAccess.isLibrarian(userInfo)) {
             setupLibrarianView();
+        } else if (userAccess.isMember(userInfo)) {
+            setupMemberView();
         }
     }
 
     protected abstract void setupAdminView();
 
     protected abstract void setupLibrarianView();
+
+    protected abstract void setupMemberView();
 
 }

@@ -28,4 +28,8 @@ public interface MemberDAO extends DAO<MemberInfo> {
 
     boolean isMemberAvailable(Member member) throws RemoteException;
 
+    boolean isUsernameAlreadyUsed(String username) throws RemoteException;
+
+    MemberInfo loginMember(Member member) throws RemoteException;
+
 }

@@ -548,6 +548,13 @@ public final class BookStockPanel extends BaseUserPanel implements BookView<Book
         this.deleteBookButton.setVisible(false);
     }
 
+    @Override
+    protected void setupMemberView() {
+        addBookButton.setVisible(false);
+        updateBookButton.setVisible(false);
+        this.deleteBookButton.setVisible(false);
+    }
+
     /**
      * @return the borrowListener
      */

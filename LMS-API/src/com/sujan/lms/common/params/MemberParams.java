@@ -16,21 +16,24 @@
  */
 package com.sujan.lms.common.params;
 
-import com.sujan.lms.common.params.Params;
-
 /**
  *
  * @author Suzn
  */
-public class MemberParams extends Params{
-    
+public class MemberParams extends Params {
+
     public static final String FILENAME = "MemberInfo.json";
-    
+
     public static final String MEMBERSHIP_ID = "membershipId";
     public static final String NAME = "name";
-    public static final String ADDRESS = "address";
-    public static final String CONTACT = "contact";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
+    public static final String TP_NUMBER = "tpnumber";
+    public static final String DOB = "dob";
+    public static final String COURSE = "course";
+    public static final String YEAR = "year";
     public static final String EXPIRY_DATE = "expiryDate";
     public static final String JOINED_DATE = "joinedDate";
-    
+
 }

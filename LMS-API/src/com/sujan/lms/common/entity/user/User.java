@@ -25,71 +25,10 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-    /**
-     * @return the tpNumber
-     */
-    public String getTpNumber() {
-        return tpNumber;
-    }
-
-    /**
-     * @param tpNumber the tpNumber to set
-     */
-    public void setTpNumber(String tpNumber) {
-        this.tpNumber = tpNumber;
-    }
-
-    /**
-     * @return the dob
-     */
-    public long getDob() {
-        return dob;
-    }
-
-    /**
-     * @param dob the dob to set
-     */
-    public void setDob(long dob) {
-        this.dob = dob;
-    }
-
-    /**
-     * @return the course
-     */
-    public String getCourse() {
-        return course;
-    }
-
-    /**
-     * @param course the course to set
-     */
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    /**
-     * @return the year
-     */
-    public int getYear() {
-        return year;
-    }
-
-    /**
-     * @param year the year to set
-     */
-    public void setYear(int year) {
-        this.year = year;
-    }
-
     private int id;
     private String name;
     private String username;
     private String password;
-    private String tpNumber;
-    private long dob;
-    private String course;
-    private int year;
-    private String email;
     private Role role;
 
     public User() {
@@ -168,19 +107,4 @@ public class User implements Serializable {
     public void setRole(Role role) {
         this.role = role;
     }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
 }
