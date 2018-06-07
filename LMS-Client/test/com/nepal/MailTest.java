@@ -16,14 +16,11 @@
  */
 package com.nepal;
 
-import com.sujan.lms.common.util.Logy;
 import com.sujan.lms.mail.MailClient;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-import javax.mail.MessagingException;
 import org.junit.Test;
 
 /**
@@ -34,12 +31,8 @@ public class MailTest {
 
     @Test
     public void mailSendTestCase() {
-        try {
-            MailClient mailClient = new MailClient("smartbahun2@gmail.com", "78764682");
-            mailClient.sendMail("suzanparajuli@gmail.com");
-        } catch (MessagingException | UnsupportedEncodingException ex) {
-            Logy.e(ex);
-        }
+        MailClient mailClient = new MailClient("smartbahun2@gmail.com", "");
+        mailClient.sendMail("suzanparajuli@gmail.com");
     }
 
     @Test
