@@ -143,7 +143,7 @@ public class BookValidation extends BaseValidation {
         return true;
     }
 
-    public boolean isBorrowFormValid(String book, String member, Calendar expiryDate) {
+    public boolean isBorrowFormValid(String book, String member, Calendar returningDate) {
         Logy.d("Validating borrow insert form");
         if (isStringEmptyOrNull(book)) {
             Logy.d("Borrow book not valid");
@@ -157,13 +157,15 @@ public class BookValidation extends BaseValidation {
             return false;
         }
 
-        if (isDateEmptyOrNull(expiryDate)) {
-            Logy.d("Borrow expirydate not valid");
-            Alert.showError(component, "Expiry date field cannot be empty.");
+        if (returningDate == null || isStringEmptyOrNull(returningDate.toString())) {
+            Logy.d("Borrow returning date not valid");
+            Alert.showError(component, "Returning date field cannot be empty.");
             return false;
-        } else if (isBeforeDateValid(expiryDate)) {
-            Logy.d("Borrow expiry date not valid");
-            Alert.showError(component, "Expiry date must be after current date.");
+        }
+
+        if (isBeforeDateValid(returningDate)) {
+            Logy.d("Borrow returning date not valid");
+            Alert.showError(component, "Returning date must be after current date.");
             return false;
         }
 

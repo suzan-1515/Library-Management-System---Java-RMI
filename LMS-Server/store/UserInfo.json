@@ -1,0 +1,22 @@
+[
+  {
+    "id": 6856,
+    "name": "Sujan",
+    "username": "admin",
+    "password": "admin",
+    "role": {
+      "id": 0,
+      "title": "Admin"
+    }
+  },
+  {
+    "id": 6859,
+    "name": "Phoolmaya",
+    "username": "lib",
+    "password": "lib12345",
+    "role": {
+      "id": 1,
+      "title": "Librarian"
+    }
+  }
+]

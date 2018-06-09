@@ -102,10 +102,10 @@ public final class MailClient {
                 //Setting the recepients from the address variable
                 msg.setRecipients(Message.RecipientType.TO, address);
                 msg.setSubject("Registration Complete!");
-                msg.setFrom(new InternetAddress(username, "Knowledgica Library!"));
+                msg.setFrom(new InternetAddress(username, "APU Library!"));
 
                 msg.setSentDate(new Date());
-                msg.setText("Thank you for registering to Knowledgica Library. Please "
+                msg.setText("Thank you for registering to APU Library. Please "
                         + "login with your credientials to start using our system");
                 msg.setHeader("XPriority", "1");
                 Transport.send(msg);

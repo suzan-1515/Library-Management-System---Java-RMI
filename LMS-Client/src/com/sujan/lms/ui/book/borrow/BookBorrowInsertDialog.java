@@ -67,6 +67,7 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
         validation = new BookValidation(parent);
         if (userInfo.getRole().getId() == RoleParams.ROLE_MEMBER) {
             memberIdTextField.setText(String.valueOf(userInfo.getId()));
+            memberIdTextField.setEditable(false);
         }
         userIdTextField.setText(String.valueOf(userInfo.getId()));
     }
@@ -96,7 +97,7 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
         jLabel4 = new javax.swing.JLabel();
         userIdTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        expiryDateChooser = new datechooser.beans.DateChooserCombo();
+        returningDateChooser = new datechooser.beans.DateChooserCombo();
         jPanel6 = new javax.swing.JPanel();
         cancelButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
@@ -206,8 +207,8 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
 
         jLabel6.setText("Returning Date");
 
-        expiryDateChooser.setSelectedDate(null);
-        expiryDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
+        returningDateChooser.setSelectedDate(null);
+        returningDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
                 new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(0, 0, 0),
@@ -248,15 +249,13 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
-    expiryDateChooser.setCalendarPreferredSize(new java.awt.Dimension(340, 180));
-    expiryDateChooser.setNothingAllowed(false);
+    returningDateChooser.setCalendarPreferredSize(new java.awt.Dimension(340, 180));
     try {
-        expiryDateChooser.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2018, 5, 2),
-            new java.util.GregorianCalendar(2018, 5, 2))));
-} catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-    e1.printStackTrace();
+        returningDateChooser.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+    } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+        e1.printStackTrace();
     }
-    expiryDateChooser.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
+    returningDateChooser.setMinDate(Calendar.getInstance());
 
     javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
     jPanel5.setLayout(jPanel5Layout);
@@ -274,7 +273,7 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
                     .addComponent(bookIdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                     .addComponent(memberIdTextField)
                     .addComponent(userIdTextField))
-                .addComponent(expiryDateChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(returningDateChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(0, 0, Short.MAX_VALUE))
     );
 
@@ -297,13 +296,13 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(expiryDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(returningDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bookIdTextField, memberIdTextField, userIdTextField});
 
-    jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {expiryDateChooser, jLabel6});
+    jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel6, returningDateChooser});
 
     jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(255, 51, 0)));
     jPanel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -397,7 +396,7 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         if (validation.isBorrowFormValid(bookIdTextField.getText(), memberIdTextField.getText(),
-                expiryDateChooser.getSelectedDate())) {
+                returningDateChooser.getSelectedDate())) {
 
             BookInfo bookById = getBook(bookIdTextField.getText());
             if (bookById != null) {
@@ -413,8 +412,8 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
 
                             Borrow borrow = new Borrow();
                             borrow.setId(Utils.generateRandomID());
-                            borrow.setNumOfDays(getDays(expiryDateChooser.getSelectedDate()));
-                            borrow.setReturningDate(expiryDateChooser.getSelectedDate().getTimeInMillis());
+                            borrow.setNumOfDays(getDays(returningDateChooser.getSelectedDate()));
+                            borrow.setReturningDate(returningDateChooser.getSelectedDate().getTimeInMillis());
                             borrow.setTimestamp(new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()));
 
                             transaction.setTimestamp(new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()));
@@ -454,7 +453,7 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
     private void resetFields() {
         bookIdTextField.setText(null);
         memberIdTextField.setText(null);
-        expiryDateChooser.setSelectedDate(null);
+        returningDateChooser.setSelectedDate(null);
     }
 
     /**
@@ -499,7 +498,6 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
     private javax.swing.JTextField bookIdTextField;
     private javax.swing.JButton cancelButton;
     private javax.swing.JPanel centerPanel;
-    private datechooser.beans.DateChooserCombo expiryDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -512,6 +510,7 @@ public class BookBorrowInsertDialog extends BaseBookTransaction {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField memberIdTextField;
+    private datechooser.beans.DateChooserCombo returningDateChooser;
     private javax.swing.JPanel rootPanel;
     private javax.swing.JButton saveButton;
     private javax.swing.JPanel topPanel;

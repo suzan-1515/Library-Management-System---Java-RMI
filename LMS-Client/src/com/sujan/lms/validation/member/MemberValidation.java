@@ -48,9 +48,21 @@ public class MemberValidation extends BaseValidation {
             return false;
         }
 
+        if (dob == null || isStringEmptyOrNull(dob.toString())) {
+            Logy.d("Member dob not valid");
+            Alert.showError(component, "DOB field cannot be empty.");
+            return false;
+        }
+
         if (!isBeforeDateValid(dob)) {
             Logy.d("Member dob must be before current date");
             Alert.showError(component, "DOB must be before current date.");
+            return false;
+        }
+
+        if (expiryDate == null || isStringEmptyOrNull(expiryDate.toString())) {
+            Logy.d("Member expiryDate not valid");
+            Alert.showError(component, "Expiry Date field cannot be empty.");
             return false;
         }
 
