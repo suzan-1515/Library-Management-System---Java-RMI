@@ -39,5 +39,18 @@
     "year": 2016,
     "email": "suzanparajuli@gmail.com",
     "tpnumber": "NP000063"
+  },
+  {
+    "expiryDate": 1560449653540,
+    "joinedDate": 1528913741937,
+    "id": 97929,
+    "name": "Hari Bahadur",
+    "username": "hari12345",
+    "password": "hari12345",
+    "tpNumber": "NP000000",
+    "dob": 802635252630,
+    "course": "BBA",
+    "year": 2016,
+    "email": "suzanparajuli@gmail.com"
   }
 ]
