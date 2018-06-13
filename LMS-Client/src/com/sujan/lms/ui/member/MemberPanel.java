@@ -377,7 +377,7 @@ public final class MemberPanel extends BaseUserPanel implements MemberView {
     private void updateMemberInfoRowData(MemberInfo member, int row) {
         ((DefaultTableModel) table.getModel()).setValueAt(member.getName(), row, 1);
         ((DefaultTableModel) table.getModel()).setValueAt(member.getEmail(), row, 2);
-        ((DefaultTableModel) table.getModel()).setValueAt(member.getDob(), row, 3);
+        ((DefaultTableModel) table.getModel()).setValueAt(Utils.millisToSql(member.getDob()), row, 3);
         ((DefaultTableModel) table.getModel()).setValueAt(member.getCourse(), row, 4);
         ((DefaultTableModel) table.getModel()).setValueAt(member.getTpNumber(), row, 5);
         ((DefaultTableModel) table.getModel()).setValueAt(member.getYear(), row, 6);

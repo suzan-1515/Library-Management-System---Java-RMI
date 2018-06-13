@@ -368,13 +368,14 @@ public class GuestDashboard extends javax.swing.JFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         Logy.d("Register button clicked");
-        MemberInsertDialog userRegisterDialog = new MemberInsertDialog(this, true);
-        userRegisterDialog.setItemAddedListener((MemberInfo member) -> {
+        MemberInsertDialog memberRegisterDialog = new MemberInsertDialog(this, true);
+        memberRegisterDialog.setItemAddedListener((MemberInfo member) -> {
             Login login = new Login();
             login.setVisible(true);
             this.dispose();
         });
-        userRegisterDialog.setVisible(true);
+        memberRegisterDialog.disableExpiryDate();
+        memberRegisterDialog.setVisible(true);
     }//GEN-LAST:event_registerButtonActionPerformed
 
 

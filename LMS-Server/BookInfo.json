@@ -1,6 +1,6 @@
 [
   {
-    "availableCopies": 7,
+    "availableCopies": 10,
     "id": 26353,
     "title": "THE EDUCATION OF HENRY ADAMS",
     "subject": {
@@ -26,17 +26,17 @@
     "numberOfCopy": 10
   },
   {
-    "availableCopies": 3,
+    "availableCopies": 4,
     "id": 59785,
     "title": "THE VARIETIES OF RELIGIOUS EXPERIENCE",
     "subject": {
-      "id": 9489,
-      "title": "Aeronautical  and  Manufacturing Engineering"
+      "id": 82697,
+      "title": "Architecture"
     },
     "author": {
-      "id": 5846,
-      "title": "William James",
-      "contact": "(580) 710-3667"
+      "id": 38514,
+      "title": "Sujan Parajuli",
+      "contact": "9849056767"
     },
     "publisher": {
       "id": 3449,
@@ -49,6 +49,6 @@
       "id": 6960,
       "location": "A2"
     },
-    "numberOfCopy": 4
+    "numberOfCopy": 5
   }
 ]

@@ -25,5 +25,19 @@
     "course": "BBA",
     "year": 2017,
     "email": "suzanparajuli@gmail.com"
+  },
+  {
+    "expiryDate": 1560446935686,
+    "joinedDate": 1528910597245,
+    "id": 65959,
+    "name": "Ram",
+    "username": "ram12345",
+    "password": "ram12345",
+    "tpNumber": "NP000063",
+    "dob": 802546254728,
+    "course": "BBA",
+    "year": 2016,
+    "email": "suzanparajuli@gmail.com",
+    "tpnumber": "NP000063"
   }
 ]

@@ -290,7 +290,8 @@ public class UserUpdateDialog extends javax.swing.JDialog {
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         String password = String.valueOf(passwordField.getPassword());
-        if (validation.isUserFormValid(user.getUsername(), password)) {
+        if (validation.isUserUpdateFormValid(nameTextField.getText(),
+                user.getUsername(), password)) {
 
             user.setName(nameTextField.getText());
             user.setPassword(password);
@@ -300,7 +301,6 @@ public class UserUpdateDialog extends javax.swing.JDialog {
                 notifyDataSetChanged(user);
                 Alert.showInformation(this, "User updated successfully!");
 
-                resetFields();
                 this.dispose();
             } catch (Exception ex) {
                 Logy.e(ex);

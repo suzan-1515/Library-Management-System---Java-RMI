@@ -95,9 +95,7 @@ public final class MailClient {
             try {
                 //Creating a Message object to set the email content
                 MimeMessage msg = new MimeMessage(session);
-                //Storing the comma seperated values to email addresses
-                /*Parsing the String with defualt delimiter as a comma by marking the boolean as true and storing the email
-                addresses in an array of InternetAddress objects*/
+
                 InternetAddress[] address = InternetAddress.parse(recipient, true);
                 //Setting the recepients from the address variable
                 msg.setRecipients(Message.RecipientType.TO, address);
@@ -129,7 +127,7 @@ public final class MailClient {
             // load a properties file
             prop.load(input);
 
-            // get the property value and print it out
+            // get the property value and store in array
             credintials = new String[2];
             credintials[0] = prop.getProperty("username");
             credintials[1] = prop.getProperty("password");

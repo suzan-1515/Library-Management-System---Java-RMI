@@ -198,4 +198,39 @@ public class UserValidation extends BaseValidation {
         return true;
     }
 
+    public boolean isUserUpdateFormValid(String name, String username, String password) {
+
+        Logy.d("Validating user update form");
+
+        if (isStringEmptyOrNull(name)) {
+            Logy.d("User name not valid");
+            Alert.showError(component, "Name field cannot be empty.");
+            return false;
+        }
+
+        String s = username.trim();
+        if (isStringEmptyOrNull(s)) {
+            Logy.d("User username not valid");
+            Alert.showError(component, "Username field cannot be empty.");
+            return false;
+        } else if (s.length() < 6 || s.length() > 10) {
+            Logy.d("User username not valid");
+            Alert.showError(component, "Username must be of between 6 to 10 characters");
+            return false;
+        }
+
+        s = password.trim();
+        if (isStringEmptyOrNull(s)) {
+            Logy.d("User password not valid");
+            Alert.showError(component, "Password field cannot be empty.");
+            return false;
+        } else if (s.length() < 8 || s.length() > 18) {
+            Logy.d("User password not valid");
+            Alert.showError(component, "Password number must be of between 8 to 18 characters");
+            return false;
+        }
+
+        return true;
+    }
+
 }

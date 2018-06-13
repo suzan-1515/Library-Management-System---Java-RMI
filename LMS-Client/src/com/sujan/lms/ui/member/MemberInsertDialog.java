@@ -108,7 +108,7 @@ public class MemberInsertDialog extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         emailTextField = new javax.swing.JTextField();
         confirmPasswordField = new javax.swing.JPasswordField();
-        jLabel11 = new javax.swing.JLabel();
+        expiryDateLabel = new javax.swing.JLabel();
         expiryDateChooser = new datechooser.beans.DateChooserCombo();
         jPanel6 = new javax.swing.JPanel();
         cancelButton = new javax.swing.JButton();
@@ -262,7 +262,7 @@ public class MemberInsertDialog extends javax.swing.JDialog {
 
     jLabel10.setText("Email");
 
-    jLabel11.setText("Expiry Date");
+    expiryDateLabel.setText("Expiry Date");
 
     dobDateChooser.setSelectedDate(null);
     expiryDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
@@ -340,7 +340,7 @@ try {
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(expiryDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(expiryDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,7 +384,7 @@ try {
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(expiryDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(expiryDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -401,7 +401,7 @@ try {
 
     jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel9, yearTextField});
 
-    jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {expiryDateChooser, jLabel11});
+    jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {expiryDateChooser, expiryDateLabel});
 
     jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(255, 51, 0)));
     jPanel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -645,9 +645,9 @@ try {
     private datechooser.beans.DateChooserCombo dobDateChooser;
     private javax.swing.JTextField emailTextField;
     private datechooser.beans.DateChooserCombo expiryDateChooser;
+    private javax.swing.JLabel expiryDateLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -671,6 +671,13 @@ try {
     private javax.swing.JTextField userTextField;
     private javax.swing.JTextField yearTextField;
     // End of variables declaration//GEN-END:variables
+
+    public void disableExpiryDate() {
+        Calendar instance = Calendar.getInstance();
+        instance.add(Calendar.YEAR, 1);
+        expiryDateChooser.setSelectedDate(instance);
+        expiryDateChooser.setEnabled(false);
+    }
 
     /**
      * @return the itemAddedListener
